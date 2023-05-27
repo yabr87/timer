@@ -7,6 +7,15 @@ const Agenda = db.define('Agenda', {
     primaryKey: true,
     autoIncrement: true,
   },
+  todo: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  duration: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+    allowNull: true,
+  },
   isDone: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
