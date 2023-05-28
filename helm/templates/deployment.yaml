@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}-front
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}-front
+    spec:
+      containers:
+      - name: app
+        image: {{ .Values.frontend.image }}
+        imagePullPolicy: Always
+        ports:
+          - containerPort: {{ .Values.frontend.containerPort }}
+{{/*---          */}}
+{{/*apiVersion: apps/v1*/}}
+{{/*kind: Deployment*/}}
+{{/*metadata:*/}}
+{{/*  name: {{ .Values.appName }}-back*/}}
+{{/*spec:*/}}
+{{/*  replicas: 1*/}}
+{{/*  selector:*/}}
+{{/*    matchLabels:*/}}
+{{/*      app: {{ .Values.appName }}-back*/}}
+{{/*  template:*/}}
+{{/*    metadata:*/}}
+{{/*      labels:*/}}
+{{/*        app: {{ .Values.appName }}-back*/}}
+{{/*    spec:*/}}
+{{/*      containers:*/}}
+{{/*        - name: app*/}}
+{{/*          image: {{ .Values.backend.image }}*/}}
+{{/*          imagePullPolicy: Always*/}}
+{{/*          ports:*/}}
+{{/*            - containerPort: {{ .Values.backend.containerPort }}*/}}

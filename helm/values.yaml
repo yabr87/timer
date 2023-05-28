@@ -1,0 +1,10 @@
+host: stage.edu-streams.org
+appName: timer
+
+frontend:
+  image: registry.gitlab.com/edu-streams/timer/frontend:latest
+  containerPort: 80
+#
+#backend:
+#  image: registry.gitlab.com/edu-streams/event-server/backend:latest
+#  containerPort: 4000

@@ -1,0 +1,56 @@
+stages:
+  - build
+  - deploy
+
+#before_script:
+#  - docker info
+
+.template_build: &app_build
+  image: docker:latest
+  stage: build
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $IMAGE_PREFIX:latest || true
+    - docker build --cache-from $IMAGE_PREFIX:latest -t $IMAGE_PREFIX:latest -t $IMAGE_PREFIX:$CI_COMMIT_REF_NAME $CI_PROJECT_DIR/$PREFIX/
+    - docker push $IMAGE_PREFIX:latest
+    - docker push $IMAGE_PREFIX:$CI_COMMIT_REF_NAME
+  only:
+    - merge_requests
+    - tags
+
+.template_deploy: &app_deploy
+  image: argoproj/argocd:v2.6.7
+  variables:
+    APP: $CI_PROJECT_NAME-$CI_JOB_NAME_SLUG
+  stage: deploy
+  script:
+    - argocd login $ARGOCD_SERVER --grpc-web --password $ARGOCD_PASS --username $ARGOCD_USER
+    - echo $APP
+    - argocd app set ${APP} -p frontend.image=$CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_REF_NAME --grpc-web
+    - argocd app set ${APP} -p backend.image=$CI_REGISTRY_IMAGE/backend:$CI_COMMIT_REF_NAME --grpc-web
+    - argocd app sync ${APP} --force --replace
+    - argocd app wait ${APP} --grpc-web
+
+#backend:
+#  variables:
+#    PREFIX: backend
+#    IMAGE_PREFIX: $CI_REGISTRY_IMAGE/$PREFIX
+#  <<: *app_build
+
+frontend:
+  variables:
+    PREFIX: frontend
+    IMAGE_PREFIX: $CI_REGISTRY_IMAGE/$PREFIX
+  <<: *app_build
+
+stage:
+  <<: *app_deploy
+  only:
+    - merge_requests
+    - tags
+
+#prod:
+#  <<: *app_deploy
+#  when: manual
+#  only:
+#    - tags
