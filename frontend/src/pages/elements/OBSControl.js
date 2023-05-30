@@ -1,6 +1,6 @@
-import DisplayBox from './display/DisplayBox';
-import TimerBox from './timer/TimerBox';
-import AgendaList from './agenda/AgendaList';
+import DisplayBox from '../../components/DisplayBox';
+import TimerBox from '../../components/timer/TimerBox';
+import AgendaList from '../../components/agenda/AgendaList';
 
 const OBSControl = () => {
   return (

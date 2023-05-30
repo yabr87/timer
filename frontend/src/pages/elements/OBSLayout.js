@@ -2,7 +2,7 @@
 // import { socket } from '../../services/socket';
 
 import Timer from '../../components/timer/Timer';
-import AgendaDisplay from './agenda/AgendaDisplay';
+import AgendaDisplay from '../../components/agenda/AgendaDisplay';
 
 const OBSLayout = () => {
   // const [message, setMessage] = useState('');

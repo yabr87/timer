@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { socket } from '../../../services/socket';
+import { socket } from '../../services/socket';
 import { Typography, Stack } from '@mui/material';
 import SchoolIcon from '@mui/icons-material/School';
 import DotIcon from '@mui/icons-material/FiberManualRecord';

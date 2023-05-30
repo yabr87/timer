@@ -1,7 +1,7 @@
 import { Box, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Typography from '@mui/material/Typography';
-import { socket } from '../../../services/socket';
+import { socket } from '../services/socket';
 
 const DisplayBox = () => {
   const [isDisplay, setIsDisplay] = useState(true);

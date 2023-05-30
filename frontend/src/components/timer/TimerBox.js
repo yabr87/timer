@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { socket } from '../../../services/socket';
+import { socket } from '../../services/socket';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Box, Typography, Stack, Button } from '@mui/material';

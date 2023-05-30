@@ -2,15 +2,15 @@ import { useState, useEffect, useCallback } from 'react';
 
 import AgendaForm from './AgendaForm';
 import AgendaItem from './AgendaItem';
-import Loader from '../../../components/Loader';
+import Loader from '../Loader';
 
-import { socket } from '../../../services/socket';
+import { socket } from '../../services/socket';
 import {
   getAllAgenda,
   createAgendaItem,
   updateAgendaItem,
   deleteAgendaItem,
-} from '../../../services/agendaApi';
+} from '../../services/agendaApi';
 
 const AgendaList = () => {
   const [data, setData] = useState([]);
@@ -19,7 +19,6 @@ const AgendaList = () => {
   const fetchData = async () => {
     try {
       const result = await getAllAgenda();
-      console.log('++++++++++', result);
       setData(result);
     } catch (error) {
       alert(`Щось пішло не так. Спробуй ще раз!`);
@@ -51,7 +50,6 @@ const AgendaList = () => {
     }
   };
   const updateTodo = async (todo) => {
-    console.log(todo);
     try {
       setIsLoaderOpen(true);
       await updateAgendaItem(todo);
@@ -92,9 +90,3 @@ const AgendaList = () => {
   );
 };
 export default AgendaList;
-
-// const todo = {
-//   todo: 'Задача',
-//   duration: 0,
-//   isDone: false,
-// };

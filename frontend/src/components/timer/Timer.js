@@ -13,8 +13,6 @@ const Timer = (props) => {
   });
   const [secondsLeft, setSecondsLeft] = useState(0);
 
-  console.log('=------>>>>', timer);
-
   let interval = null;
 
   useEffect(() => {
