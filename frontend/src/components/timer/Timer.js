@@ -1,10 +1,19 @@
 import { useState, useEffect } from 'react';
-import { Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { socket } from '../../services/socket';
 
+import { convertToTimeFormat } from '../../utils/convertToTimeFormat';
+import TimerDialDisplay from './TimerDialDisplay';
+
 const Timer = (props) => {
-  const [timer, setTimer] = useState(props.timer);
+  const [timer, setTimer] = useState({
+    secondsLeft: 0,
+    duration: 0,
+    isPaused: true,
+  });
   const [secondsLeft, setSecondsLeft] = useState(0);
+
+  console.log('=------>>>>', timer);
 
   let interval = null;
 
@@ -48,30 +57,31 @@ const Timer = (props) => {
     };
   }, [timer.isPaused, timer.secondsLeft]);
 
-  const convertToTimeFormat = (seconds) => {
-    if (!seconds) {
-      return '00:00:00';
-    }
-    if (seconds < 3600) {
-      // format: 3600 seconds => 01:00:00
-      return new Date(seconds * 1000).toISOString().slice(14, 19);
-    } else {
-      // format: 3599 seconds => 59:59
-      return new Date(seconds * 1000).toISOString().slice(11, 19);
-    }
-  };
-
   return (
-    <Typography
-      fontSize={48}
-      fontWeight={600}
-      lineHeight={1}
-      color={'black'}
-      ml={5}
-      mt={5}
+    <Stack
+      direction={'row'}
+      spacing={3}
+      sx={{
+        maxWidth: '288px',
+        padding: '8px',
+        paddingBottom: '14px',
+        backgroundColor: '#000000',
+        borderRadius: '8px 8px 0px 0px',
+      }}
     >
-      {convertToTimeFormat(secondsLeft)}
-    </Typography>
+      <TimerDialDisplay
+        text={'Пройшло'}
+        time={convertToTimeFormat(timer.duration - secondsLeft).slice(0, -3)}
+      />
+      <TimerDialDisplay
+        text={'Залишилось'}
+        time={convertToTimeFormat(secondsLeft)}
+      />
+      <TimerDialDisplay
+        text={'Всього'}
+        time={convertToTimeFormat(timer.duration).slice(0, -3)}
+      />
+    </Stack>
   );
 };
 export default Timer;

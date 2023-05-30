@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 const TimerBox = () => {
   const [timer, setTimer] = useState({
     secondsLeft: 0,
+    duration: 0,
     isPaused: true,
   });
   const [selectedTime, setSelectedTime] = useState(
@@ -59,6 +60,7 @@ const TimerBox = () => {
 
     Object.assign(timer, {
       secondsLeft: hours * 3600 + minutes * 60,
+      duration: hours * 3600 + minutes * 60,
       isPaused: true,
     });
     emitTimer();
