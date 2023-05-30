@@ -27,11 +27,11 @@ const AgendaItem = ({ data, deleTodo, updateTodo }) => {
     >
       {!isDone ? (
         <IconButton onClick={isCheck}>
-          <PanoramaFishEyeIcon size='large' />
+          <PanoramaFishEyeIcon />
         </IconButton>
       ) : (
         <IconButton onClick={isCheck}>
-          <TaskAltIcon size='large' color='secondary' />
+          <TaskAltIcon color='secondary' />
         </IconButton>
       )}
       <Grid item xs={8} zeroMinWidth>
@@ -41,15 +41,15 @@ const AgendaItem = ({ data, deleTodo, updateTodo }) => {
         <Stack spacing={1} direction='row-reverse'>
           {!isDel ? (
             <IconButton onClick={() => setIsDel(true)}>
-              <DeleteIcon size='large' />
+              <DeleteIcon />
             </IconButton>
           ) : (
             <>
               <IconButton onClick={() => setIsDel(false)}>
-                <ClearIcon size='large' />
+                <ClearIcon />
               </IconButton>
               <IconButton onClick={() => deleTodo(id)}>
-                <DeleteForeverIcon size='large' color='error' />
+                <DeleteForeverIcon color='error' />
               </IconButton>
             </>
           )}
